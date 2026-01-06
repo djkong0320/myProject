@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springboot.dao.IregisterDAO">
+	<select id="listDao" resultType="com.study.springboot.dto.registerDTO">
+		select * from register order by rno desc
+	</select>
+	<insert id="writeDao">
+		insert into register 
+		 values(register_seq.nextval, #{rid}, #{rpasswd}, #{rname}, #{rtel}, #{rgender}, #{rhobby}, #{rprofile}, sysdate)
+	</insert>
+	<select id="viewDao" resultType="com.study.springboot.dto.registerDTO">
+		select * from register where rno = #{param1}
+	</select>
+	<select id="checkPasswordDao" resultType="boolean">
+		select case when count(*) > 0 then 1 else 0 end as result  
+		 from register where rno=#{param1} and rpasswd=#{param2}
+	</select>
+	<delete id="deleteDao">
+		delete from register where rno = #{param1}
+	</delete>
+	<update id="updateDao">
+		update register set rpasswd = #{rpasswd}, rname = #{rname}, rtel = #{rtel}, rhobby = #{rhobby}, rprofile = #{rprofile} where rno= #{rno}
+	</update>
+</mapper>
